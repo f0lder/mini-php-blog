@@ -7,12 +7,15 @@
     <title>Mini Blog</title>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>
     
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
     <!-- include summernote css/js -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs5.min.css"/>
 
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    
     <!-- include for syntax highlight css/js -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/panda-syntax-light.css">
 
@@ -42,6 +45,9 @@
                         <a class="nav-link" href="pages.php">Pagini</a>
                     </li>
                     <?php
+
+                    header("Content-Security-Policy: script-src 'self'");
+                    
                     $sql_cat = 'SELECT
                         id,
                         name,
@@ -115,6 +121,7 @@
                     }
                     ?>
                 </ul>
+                <hr/>
                 <ul class="navbar-nav ml-auto">
                     <?php
                     if (!empty($_SESSION)) {
@@ -146,4 +153,4 @@
 
     <div class="mb-4" style="background-color: #eee">
 
-        <div class="w-50 mx-auto p-3">
+        <div class="mx-auto p-3 col-lg-8">
