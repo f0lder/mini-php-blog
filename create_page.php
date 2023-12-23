@@ -68,12 +68,14 @@ if (isset($_SESSION['signed_in'])) {
 
             $sql = 'INSERT INTO static(name,content)
             VALUES("' . $_POST['page_name'] . '",\'' . $_POST['page_content'] . '\')';
-            echo $sql;
+            echo '<pre class="border border-success"><code class="sql">' . $sql . '</code></pre>';
             $result = $connection->query($sql);
             if (!$result) {
                 echo 'Eroare' . mysqli_error($connection) . '';
             } else {
-                echo 'Pagina adaugata cu succes!';
+                echo '<div class="alert alert-success" role="alert">
+                            Pagina creata cu succes!
+                    </div>';
             }
         }
     }

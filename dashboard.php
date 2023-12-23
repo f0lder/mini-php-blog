@@ -52,7 +52,7 @@ if (isset($_SESSION['signed_in'])) {
         // selectam totate categoriile
         $sql_cat = 'SELECT id, name, description FROM categories';
         $result = $connection->query($sql_cat);
-        echo '<pre><code class="sql">' . $sql_cat . '</code></pre>';
+        echo '<pre class="border border-success"><code class="sql">' . $sql_cat . '</code></pre>';
 
         if (!$result) {
             echo 'Categoriile nu pot fi afisate';

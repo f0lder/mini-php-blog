@@ -102,11 +102,15 @@ if (isset($_SESSION['signed_in'])) {
             $sql = 'INSERT INTO posts(name, content, parent_id, date)
                         VALUES("' . $_POST['post_name'] . '",\'' . $_POST['summernote'] . '\',' . $_POST['post_cat'] . ',NOW())';
             
-            echo '<pre><code class="sql">' . $sql . '</code></pre>';
+            echo '<pre class="border border-success"><code class="sql">' . $sql . '</code></pre>';
             $result = $connection->query($sql);
 
             if (!$result) {
                 echo 'A aparut o eroare la crearea postarii!' . mysqli_error($connection);
+            } else {
+                echo '<div class="alert alert-success" role="alert">
+                            Postare creata cu succes!
+                    </div>';
             }
 
         }
