@@ -23,7 +23,8 @@ if (isset($_SESSION['signed_in'])) {
                     //TODO check for user level
                 } else {
                     echo
-                        '<form id="postForm" method="post" action="">
+                        '<h1>Creeaza o postare</h1>
+                        <form id="postForm" method="post" action="">
                          <div class="form-row">
 
                          <div class="form-group col-md-6">
