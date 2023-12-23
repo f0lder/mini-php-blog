@@ -49,6 +49,7 @@ if (isset($_SESSION['signed_in'])) {
                     <script>
                         $(document).ready(function () {
                             $("#summernote").summernote();
+                            $('.dropdown-toggle').dropdown();
                         });
 
                         function submitForm() {
@@ -72,7 +73,7 @@ if (isset($_SESSION['signed_in'])) {
                                 content,
                                 parent_id,
                                 date)
-                        VALUES("' . $_POST['post_name'] . '","' . $_POST['summernote'] . '",' . $_POST['post_cat'] . ',NOW())';
+                        VALUES("' . $_POST['post_name'] . '",\'' . $_POST['summernote'] . '\',' . $_POST['post_cat'] . ',NOW())';
 
             echo '<pre><code class="sql">' . $sql . '</code></pre>';
             $result = $connection->query($sql);
