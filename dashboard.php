@@ -9,7 +9,7 @@ if (isset($_SESSION['signed_in'])) {
         echo '<h2>Esti conectat ca: ' . $_SESSION['username'] . '</h2>';
         ?>
 
-        <div class="container">
+        <div class="container mb-3">
             <div class="row">
                 <div class="col d-flex justify-content-center">
                     <a type="button" class="btn btn-primary" href="index.php">Acasa</a>
@@ -31,12 +31,9 @@ if (isset($_SESSION['signed_in'])) {
 
         <?php
         //selectam toate paginile statice
-        $sql_pages = 'SELECT
-                        id,
-                        name,
-                        content
-                    FROM
-                        static';
+        $sql_pages = 'SELECT id, name, content FROM static';
+
+        echo '<pre><code class="sql">' . $sql_pages . '</code></pre>';
         $result = $connection->query($sql_pages);
 
         if (!$result) {
@@ -53,13 +50,9 @@ if (isset($_SESSION['signed_in'])) {
         }
 
         // selectam totate categoriile
-        $sql_cat = 'SELECT
-                        id,
-                        name,
-                        description
-                    FROM
-                        categories';
+        $sql_cat = 'SELECT id, name, description FROM categories';
         $result = $connection->query($sql_cat);
+        echo '<pre><code class="sql">' . $sql_cat . '</code></pre>';
 
         if (!$result) {
             echo 'Categoriile nu pot fi afisate';
@@ -72,17 +65,10 @@ if (isset($_SESSION['signed_in'])) {
                     echo '<p> Categorie:' . $row['id'] . '<a class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="category.php?id=' . $row['id'] . '">' . $row['name'] . '</a>  ' . $row['description'] . '</p>';
                     //pentru fiecare categorie afisam postarile
 
-                    $sql_posts = 'SELECT
-                        id,
-                        name,
-                        content,
-                        parent_id,
-                        date
-                    FROM
-                        posts
-                    WHERE
-                        parent_id = ' . $row['id'];
+                    $sql_posts = 'SELECT id, name, content, parent_id, date FROM posts WHERE parent_id = ' . $row['id'];
+                    echo '<pre><code class="sql">' . $sql_posts . '</code></pre>';
                     $result_posts = $connection->query($sql_posts);
+                    
 
                     if (!$result_posts) {
                         echo "Nu exista postari";

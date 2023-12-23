@@ -23,25 +23,46 @@ if (isset($_SESSION['signed_in'])) {
                     //TODO check for user level
                 } else {
                     echo
-                        '<form method="post" action="">
-                        Nume postare: <input type="text" name="post_name" /><br/>
-                        <p>Categorie:';
-                    echo '<select name="post_cat">';
+                        '<form id="postForm" method="post" action="">
+
+                         <div class="form-group">
+                            <label for="name">Nume postare</label>
+                            <input class="form-control" type="text" name="post_name" id="name"/>
+                        </div>
+                        <div class="form-group">
+                             <label for="categorie">Categoie:</label>';
+
+                    echo '<select class="form-control" id="categorie" name="post_cat">';
                     while ($row = mysqli_fetch_assoc($result)) {
                         echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
                     }
                     echo '</select><br/>';
-                    echo '<p>Content: <br/><p><textarea name="post_content"/></textarea><br/><br/>
-                        <p><input type="submit" value="Creaza SUBIECT"/>
+                    ?>
 
-                        <div id="summernote" name="content2"><p>Hello Summernote</p></div>
-  <script>
-    $(document).ready(function() {
-        $("#summernote").summernote();
-    });
-  </script>
-                        
-                    </form>';
+                    <div id="summernote">
+                        <p>Hello Summernote</p>
+                    </div>
+
+                    <input type="hidden" name="summernote" id="summer">
+
+                    <button type="button" onclick="submitForm()">Submit</button>
+                    <script>
+                        $(document).ready(function () {
+                            $("#summernote").summernote();
+                        });
+
+                        function submitForm() {
+                            // Get Summernote content and set it in the hidden input field
+                            var summernoteContent = $('#summernote').summernote('code');
+                            $('#summer').val(summernoteContent);
+
+                            // Submit the form
+                            $('#postForm').submit();
+                        }
+                    </script>
+
+                    </form>
+                    <?php
                 }
             }
         } else {
@@ -51,11 +72,11 @@ if (isset($_SESSION['signed_in'])) {
                                 content,
                                 parent_id,
                                 date)
-                        VALUES("' . $_POST['post_name'] . '","' . $_POST['post_content'] . '",' . $_POST['post_cat'] . ',NOW())';
+                        VALUES("' . $_POST['post_name'] . '","' . $_POST['summernote'] . '",' . $_POST['post_cat'] . ',NOW())';
 
-            echo $sql;
+            echo '<pre><code class="sql">' . $sql . '</code></pre>';
             $result = $connection->query($sql);
-            
+
             if (!$result) {
                 echo 'A aparut o eroare la crearea postarii!' . mysqli_error($connection);
             }

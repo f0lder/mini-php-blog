@@ -2,7 +2,8 @@
 <html lang="ro-RO">
 
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mini Blog</title>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -12,6 +13,12 @@
     <!-- include summernote css/js -->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
+    <!-- include for syntax highlight css/js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/panda-syntax-light.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <link href="style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -53,22 +60,22 @@
                         } else {
                             while ($row = mysqli_fetch_assoc($result)) {
                                 echo '<li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="category.php?id='.$row['id'].'" id="navbarDropdown" role="button"
+                        <a class="nav-link dropdown-toggle" href="category.php?id=' . $row['id'] . '" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             ' . $row['name'] . '
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">';
 
                                 $sql_posts = 'SELECT
-                        id,
-                        name,
-                        content,
-                        parent_id,
-                        date
-                    FROM
-                        posts
-                    WHERE
-                        parent_id = ' . $row['id'];
+                                        id,
+                                        name,
+                                        content,
+                                        parent_id,
+                                        date
+                                    FROM
+                                        posts
+                                    WHERE
+                                        parent_id = ' . $row['id'];
                                 $result_posts = $connection->query($sql_posts);
 
                                 if (!$result_posts) {
@@ -78,7 +85,7 @@
                                         echo '<li><a class="dropdown-item" href="#">Nu exista pagini</a></li>';
                                     } else {
                                         while ($row_post = mysqli_fetch_assoc($result_posts)) {
-                                            echo ' <li><a class="dropdown-item" href="post.php?id='.$row_post['id'].'">'.$row_post['name'].'</a></li>';
+                                            echo ' <li><a class="dropdown-item" href="post.php?id=' . $row_post['id'] . '">' . $row_post['name'] . '</a></li>';
                                         }
                                     }
                                 }
@@ -86,7 +93,7 @@
                             }
                         }
                     }
-                    
+
                     //selectam toate paginile statice
                     $sql_pages = 'SELECT
                         id,
@@ -116,7 +123,7 @@
                     if (!empty($_SESSION)) {
                         if ($_SESSION['signed_in']) {
                             echo '<li class="nav-item">
-                                <a class="nav-link" href="dashboard.php">Salut, '. $_SESSION['username'].'</a>
+                                <a class="nav-link" href="dashboard.php">Salut, ' . $_SESSION['username'] . '</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="dashboard.php">Dashboard</a>
