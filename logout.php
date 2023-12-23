@@ -12,8 +12,6 @@ if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true){
     echo '<h2>Delogare</h2>';
     echo '<p>Va mai asteptam!</p>';
 
-    header('Location: index.php');
-    exit();
 } else {
 
     echo '<h2>Delogare</h2>';

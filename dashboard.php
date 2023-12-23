@@ -4,16 +4,32 @@ include 'connect.php';
 include 'header.php';
 
 if (isset($_SESSION['signed_in'])) {
-    if($_SESSION['signed_in'] == true){
+    if ($_SESSION['signed_in'] == true) {
         echo '<h1>Dashboard </h1>';
-        echo '<h2>Aici poti crea postari!</h2>
-        <a type="button" class="btn btn-primary" href="index.php">Acasa</a>
-        <a type="button" class="btn btn-primary" href="create_post.php">Creaza o Postare</a>
-        <a type="button" class="btn btn-primary" href="create_cat.php">Creaza o Categorie</a>
-        <a type="button" class="btn btn-primary" href="create_page.php">Creaza o Pagina</a>
-        <a type="button" class="btn btn-outline-secondary" href="logout.php">Deconectare</a>';
+        echo '<h2>Esti conectat ca: ' . $_SESSION['username'] . '</h2>';
+        ?>
 
+        <div class="container">
+            <div class="row">
+                <div class="col d-flex justify-content-center">
+                    <a type="button" class="btn btn-primary" href="index.php">Acasa</a>
+                </div>
+                <div class="col d-flex justify-content-center">
+                    <a type="button" class="btn btn-primary" href="create_post.php">Creaza o Postare</a>
+                </div>
+                <div class="col d-flex justify-content-center">
+                    <a type="button" class="btn btn-primary" href="create_cat.php">Creaza o Categorie</a>
+                </div>
+                <div class="col d-flex justify-content-center">
+                    <a type="button" class="btn btn-primary" href="create_page.php">Creaza o Pagina</a>
+                </div>
+                <div class="col d-flex justify-content-center">
+                    <a type="button" class="btn btn-outline-secondary" href="logout.php">Deconectare</a>
+                </div>
+            </div>
+        </div>
 
+        <?php
         //selectam toate paginile statice
         $sql_pages = 'SELECT
                         id,
@@ -21,18 +37,18 @@ if (isset($_SESSION['signed_in'])) {
                         content
                     FROM
                         static';
-        $result = $connection->query($sql_pages); 
+        $result = $connection->query($sql_pages);
 
-        if(!$result){
+        if (!$result) {
             echo 'Paginile statice nu pot fi afisate';
         } else {
-            if(mysqli_num_rows($result) == 0){
+            if (mysqli_num_rows($result) == 0) {
                 echo 'Nu exista pagini statice';
             } else {
                 echo '<h2>Pagini statice:</h2>';
-                 while ($row = mysqli_fetch_assoc($result)) {
-                    echo '<p>'.$row['id'].'<a class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="page.php?id='.$row['id'].'">'.$row['name'].'</a>  '.$row['content'].'</p>';
-                 }
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo '<p>' . $row['id'] . '<a class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="page.php?id=' . $row['id'] . '">' . $row['name'] . '</a>  ' . $row['content'] . '</p>';
+                }
             }
         }
 
@@ -65,17 +81,17 @@ if (isset($_SESSION['signed_in'])) {
                     FROM
                         posts
                     WHERE
-                        id = '.$row['id'];
+                        parent_id = ' . $row['id'];
                     $result_posts = $connection->query($sql_posts);
 
-                    if(!$result_posts) {
+                    if (!$result_posts) {
                         echo "Nu exista postari";
                     } else {
-                        if(mysqli_num_rows($result_posts) == 0) {
+                        if (mysqli_num_rows($result_posts) == 0) {
                             echo "<h2>Aceasta categorie nu are postari</h2>";
                         } else {
                             echo "<h2>Postari in categorie:</h2>";
-                            while($row_post= mysqli_fetch_assoc($result_posts)) {
+                            while ($row_post = mysqli_fetch_assoc($result_posts)) {
                                 echo '<p>' . $row_post['id'] . '<a class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="post.php?id=' . $row_post['id'] . '">' . $row_post['name'] . '</a>  ' . $row_post['content'] . '</p>';
                             }
                         }
@@ -83,7 +99,7 @@ if (isset($_SESSION['signed_in'])) {
                 }
             }
         }
-    } 
+    }
 } else {
     echo "Nu ai permisiuni sa accesezi aceasta pagina!";
 }

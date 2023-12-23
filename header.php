@@ -53,7 +53,7 @@
                         } else {
                             while ($row = mysqli_fetch_assoc($result)) {
                                 echo '<li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        <a class="nav-link dropdown-toggle" href="category.php?id='.$row['id'].'" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             ' . $row['name'] . '
                         </a>
@@ -116,6 +116,9 @@
                     if (!empty($_SESSION)) {
                         if ($_SESSION['signed_in']) {
                             echo '<li class="nav-item">
+                                <a class="nav-link" href="dashboard.php">Salut, '. $_SESSION['username'].'</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="dashboard.php">Dashboard</a>
                             </li>
                             <li class="nav-item">
