@@ -22,7 +22,7 @@ if (!$result) {
     } else {
         while ($row = mysqli_fetch_assoc($result)) {
             echo '<div class="m-4 p-3" style="background-color: white">';
-            echo '<h3 class="m-3">' . $row['name'] . '</h3>';
+            echo '<h3 class="m-3 text-center">' . $row['name'] . '</h3>';
             echo '<p class="p-2">' . $row['content'] . '</p>';
             echo '</div>';
 

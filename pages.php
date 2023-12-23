@@ -20,11 +20,12 @@ if (!$result) {
     } else {
         echo '<h2 class="p-3">Pagini</h2>';
         while ($row = mysqli_fetch_assoc($result)) {
-            echo '<div class="m-4 p-3" style="background-color: white">';
+            echo '<div class="m-4 p-3 b-3 border rounded" style="background-color: white">';
             echo '<h3 class="m-3"><a class="text-decoration-none" href="page.php?id=' . $row['id'] . '">' . $row['name'] . '</a><br /></h3>';
             echo '<p class="p-2">' . $row['content'] . '</p>';
             echo '</div>';
         }
+        echo '<h4 class="p-3"><a class="text-decoration-none" href="index.php">&larr; Inapoi Acasa</a> </h4>';
     }
 }
 

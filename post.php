@@ -25,9 +25,9 @@ if (!$result) {
         while ($row = mysqli_fetch_assoc($result)) {
            
             echo '<div class="m-6 p-3" style="background-color: white">';
-            echo '<h3 class="m-3">' . $row['name'] . '</h3>';
+            echo '<h2 class="m-3 text-center">' . $row['name'] . '</h2>';
             echo '<p class="p-2">Postat la ' . $row['date'] . '</p>';
-            echo '<p class="p-2">' . $row['content'] . '</p>';
+            echo '<div>' . $row['content'] . '</div>';
             echo '</div>';
 
             echo '<h4 class="p-3"><a class="text-decoration-none" href="category.php?id=' . $row['parent_id'] . '">&larr; Inapoi la categoria parinte</a> </h4>';
